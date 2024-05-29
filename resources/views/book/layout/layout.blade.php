@@ -13,6 +13,13 @@
     <title>@yield('title')</title>
 </head>
 <body>
+<div class="nav nav-pills fixed-top bg-light m-2 p-2 ">
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-primary" href="{{route('panel')}}">رفتن به ناحیه کاربری</a>
+        <a class="btn btn-secondary" href="{{route('bookList')}}">صفحه جستوجو</a>
+    </div>
+</div>
 @yield('content')
 </body>
 </html>

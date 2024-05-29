@@ -1,11 +1,7 @@
 @extends('book.layout.layout')
 
 @section('content')
-    <ul class="nav nav-pills fixed-top bg-light m-2 p-2 ">
-        <li class="nav-item">
-            <a class="nav-link active" href="{{route('panel')}}">رفتن به ناحیه کاربری</a>
-        </li>
-    </ul>
+
     <div class="container search-container search-container-adjusted">
         <div class="search-box">
             <form class="form-inline my-2 my-lg-0 d-flex" action="{{route('bookSearch')}}" method="get">
@@ -83,8 +79,6 @@
             <tr>
                 <th>عنوان</th>
                 <th>نویسنده</th>
-                <th>ناشر</th>
-                <th>تعداد صفحات</th>
                 <th>مشاهده کتاب</th>
             </tr>
             </thead>
@@ -93,8 +87,6 @@
                 <tr>
                     <td>{{ $book->title }}</td>
                     <td>{{ $book->author }}</td>
-                    <td>{{ $book->publisher }}</td>
-                    <td>{{ $book->page_count }}</td>
                     <td><a href="{{ route('book', ['book' => $book->id]) }}" class="btn btn-outline-primary">مشاهده کتاب</a></td>
                 </tr>
             @endforeach
