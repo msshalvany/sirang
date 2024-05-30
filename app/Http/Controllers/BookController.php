@@ -89,7 +89,7 @@ class BookController extends Controller
     public function bookDel(Book $book)
     {
         // بررسی آیا کتاب در حال حاضر در امانت است
-        $isBookInLoan = UserBook::where('book_id', $book->id)->exists();
+        $isBookInLoan = UserBook::where('book_id', $book->id)->where('due_date', '>', Carbon::now())->exists();
 
         // اگر کتاب در حال حاضر در امانت است، نمایش پیام خطا
         if ($isBookInLoan) {
