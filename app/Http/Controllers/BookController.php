@@ -44,15 +44,15 @@ class BookController extends Controller
 
         $user = Auth::user();
         //چک کردن وجود و به امانت گرفته نشدن کتاب
-        if (UserBook::where('book_id', $book->id)->where('due_date', '<', Carbon::now())->exists()){
+        if (UserBook::where('book_id', $book->id)->where('due_date', '>', Carbon::now())->exists()){
             return redirect()->back()->with('error', 'ین کتاب قبلا به امانت کرفته شده');
         }
-        $userBook = UserBook::create([
-            'user_id' => $user->id, // شناسه کاربر لاگین شده
-            'book_id' => $book->id,
-            'borrowed_at' => now(), // تاریخ و زمان امانت گیری
-            'due_date' => now()->addDays(7), // تاریخ و زمان پایان مهلت امانت گیری (مثلا 14 روز بعد)
-        ]);
+        $userBook = new UserBook();
+        $userBook->user_id = $user->id; // شناسه کاربر لاگین شده
+        $userBook->book_id = $book->id;
+        $userBook->borrowed_at = now(); // تاریخ و زمان امانت گیری
+        $userBook->due_date = now()->addDays(7); // تاریخ و زمان پایان مهلت امانت گیری (مثلا 7 روز بعد)
+        $userBook->save();
         // به‌روزرسانی وضعیت کتاب به "امانت گرفته شده"
         return  redirect()->route('panel')->with(['message'=>'کتاب با موفقیت به امانت گرفته شد به کتابخانه در اسرع وقت مراجعه و کتاب را دریافت کنید.']);
     }

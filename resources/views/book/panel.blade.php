@@ -2,7 +2,15 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center mt-5">لیست کتاب های به امانت گرفته شما</h2>
+        <h2 class="text-center" style="margin-top: 100px">لیست کتاب های به امانت گرفته شما</h2>
+        @if(session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade show mt-5 w-75 m-auto" role="alert">
+                <strong>{{session()->get('message')}}</strong>
+                <button type="button" class="close btn btn-close float-end" data-dismiss="alert"
+                        aria-label="Close">
+                </button>
+            </div>
+        @endif
         @foreach ($books as $book)
             @php
                 $today = \Carbon\Carbon::now();
@@ -35,12 +43,4 @@
             </div>
         @endforeach
     </div>
-    @if(session()->has('message'))
-        <div class="alert alert-success alert-dismissible fade show mt-5 w-75 m-auto" role="alert">
-            <strong>{{session()->get('message')}}</strong>
-            <button type="button" class="close btn btn-close float-end" data-dismiss="alert"
-                    aria-label="Close">
-            </button>
-        </div>
-    @endif
 @endsection
