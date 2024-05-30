@@ -1,4 +1,9 @@
 @extends('book.layout.layout')
+@section('css')
+    .nav-pills{
+        display:none;
+    }
+@endsection
 @section('content')
     <div class="container-login">
         <h1 class="text-center mb-5">به کتابخانه ملی خوش امدید</h1>
