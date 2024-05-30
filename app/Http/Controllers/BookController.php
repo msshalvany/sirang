@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\UserBook;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
-    public function hasBorrowedBook($bookId)
-    {
-        return UserBook::where('book_id', $bookId)->exists();
-    }
+
 
     public function bookList()
     {
@@ -40,11 +38,13 @@ class BookController extends Controller
         return view('book.book', compact('book'));
     }
 
+
     public function borrowBook(Book $book)
     {
 
         $user = Auth::user();
-        if ($this->hasBorrowedBook($book->id)) {
+        //چک کردن وجود و به امانت گرفته نشدن کتاب
+        if (UserBook::where('book_id', $book->id)->where('due_date', '<', Carbon::now())->exists()){
             return redirect()->back()->with('error', 'ین کتاب قبلا به امانت کرفته شده');
         }
         $userBook = UserBook::create([
